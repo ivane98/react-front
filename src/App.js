@@ -1,24 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import "./index.css";
+import { createContext, useState } from "react";
+import Header from "./components/Header.js";
+import Employees from "./pages/Employees.js";
+import Customers from "./components/Customers.js";
+import Dictionary from "./components/Dictionary.js";
+import Definition from "./components/Definition.js";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import NotFound from "./components/NotFound";
+import Customer from "./pages/Customer.js";
+import Login from "./pages/Login.js";
+
+export const LoginContext = createContext();
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(true);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <LoginContext.Provider value={[loggedIn, setLoggedIn]}>
+        <BrowserRouter>
+          <Header>
+            <Routes>
+              <Route path="/employees" element={<Employees />} />
+              <Route path="/customers" element={<Customers />} />
+              <Route path="/customers/:id" element={<Customer />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/dictionary" element={<Dictionary />} />
+              <Route path="/definition/:search" element={<Definition />} />
+              <Route path="/404" element={<NotFound />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Header>
+        </BrowserRouter>
+      </LoginContext.Provider>
+    </>
   );
 }
 
