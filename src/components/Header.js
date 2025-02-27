@@ -62,12 +62,24 @@ function Header(props) {
                       {item.name}
                     </NavLink>
                   ))}
-                  <NavLink
-                    to={loggedIn ? "/logout" : "/login"}
-                    className="px-3 py-2 text-m text-indigo-500  font-medium no-underline"
-                  >
-                    {loggedIn ? "Logout" : "Login"}
-                  </NavLink>
+                  {loggedIn ? (
+                    <NavLink
+                      to="/login"
+                      className="px-3 py-2 text-m text-indigo-500  font-medium no-underline"
+                      onClick={() => {
+                        setLoggedIn(false);
+                      }}
+                    >
+                      Logout
+                    </NavLink>
+                  ) : (
+                    <NavLink
+                      to="/login"
+                      className="px-3 py-2 text-m text-indigo-500  font-medium no-underline"
+                    >
+                      Login
+                    </NavLink>
+                  )}
                 </div>
               </div>
             </div>
